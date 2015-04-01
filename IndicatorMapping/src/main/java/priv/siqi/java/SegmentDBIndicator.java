@@ -11,6 +11,8 @@ import jxl.Sheet;
 import jxl.Workbook;
 
 import com.huaban.analysis.jieba.JiebaSegmenter;
+import com.huaban.analysis.jieba.JiebaSegmenter.SegMode;
+import com.huaban.analysis.jieba.SegToken;
 
 public class SegmentDBIndicator {
 	private ArrayList<ArrayList<String>> dbArr;
@@ -47,7 +49,7 @@ public class SegmentDBIndicator {
             ArrayList<String> tepArr = new ArrayList<String>();
             
             dbArr = new ArrayList();
-            
+//          dbArr.get(0).add("初始值");
             //获取指定单元格的对象引用     
             for (int i = 0; i < rsRows; i++)   
             {    
@@ -56,18 +58,30 @@ public class SegmentDBIndicator {
                 	Cell cell = readsheet.getCell(j, i); 
                     String indicator = new String(cell.getContents());
                     
-                    JiebaSegmenter segmenter = new JiebaSegmenter();                            
-                    List<String> strings = segmenter.sentenceProcess(indicator);//一长串的空格也在strings里面
-                    for(String s : strings){
-                    	if(s.matches(" *") == false){ //用regular expression 去掉
-                    		hashset.add(s);
+                    //更细粒度的分词
+                    JiebaSegmenter segmenter = new JiebaSegmenter();  
+                    List<SegToken> segTokenList = segmenter.process(indicator, SegMode.INDEX);
+                    for(SegToken segToken : segTokenList){
+                    	String word = segToken.word;
+                    	if(word.matches(" *") == false){ //用regular expression 把长串空格去掉
+                    		hashset.add(word);
                     	}	
-                    }
+        			}
+                  
+                    //分词的粒度太大
+//                    List<String> strings = segmenter.sentenceProcess(indicator);//一长串的空格也在strings里面
+//                    for(String s : strings){
+//                    	if(s.matches(" *") == false){ //用regular expression 把长串空格去掉
+//                    		hashset.add(s);
+//                    	}	
+//                    }
+                    
                     tepArr.addAll(hashset);
-                    dbArr.add(tepArr); //把分词后的结果存到dbArr里！  //..............有问题？下一个循环的时候就没有了？无语。。
+                    dbArr.add((ArrayList<String>)tepArr.clone()); //把分词后的结果存到dbArr里
                     hashset.clear();
                     tepArr.clear();
                 }
+                
             }                     
             
 		}catch(Exception e) {    

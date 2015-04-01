@@ -1,6 +1,8 @@
 package priv.siqi.java;
 
+import com.huaban.analysis.jieba.JiebaSegmenter;
 import com.huaban.analysis.jieba.JiebaSegmenter.SegMode;
+import com.huaban.analysis.jieba.SegToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -285,5 +287,6 @@ public class App {
 
 		MapIndicator mi = new MapIndicator();
 		mi.mapping();
+
 	}
 }

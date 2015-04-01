@@ -32,9 +32,9 @@ public class MapIndicator {
 		SegmentDBIndicator segDBIndi = new SegmentDBIndicator();
 		
 		try{
-			InputStream instream = new FileInputStream("src/main/resources/待整理指标.xls");   
+			InputStream instream = new FileInputStream("src/main/resources/待整理指标.xls"); //需要另存为xls而不能直接修改后缀名  
 
-            readwb = Workbook.getWorkbook(instream);   //.......出异常,需要另存为xls而不能直接修改后缀名
+            readwb = Workbook.getWorkbook(instream);   
           //Sheet的下标是从0开始   
             
             //获取第一张Sheet表     

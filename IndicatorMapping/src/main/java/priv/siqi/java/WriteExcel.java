@@ -26,7 +26,7 @@ public class WriteExcel {
 	            jxl.write.WritableSheet ws = wwb.getSheet(0);   
 
 	            int i = 0;
-	            while(ws.getWritableCell(kRow, i) != null){ 	
+	            while(ws.getWritableCell(i, kRow) != null){ 	
 	            	i++;
 	            }
 	            //获得单元格对象 
