@@ -41,9 +41,6 @@ public class MapIndicator {
 			//利用已经创建的Excel工作薄,创建新的可写入的Excel工作薄   	  
 			jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(new File("映射结果.xls"), readwb1);
 			
-			//为毛放在这里就不管用了！？？
-			
-			
 			InputStream instream = new FileInputStream("src/main/resources/待整理指标.xls"); //需要另存为xls而不能直接修改后缀名  
 
             readwb = Workbook.getWorkbook(instream);   

@@ -15,10 +15,6 @@ public class WriteExcel {
 	            //读取第一张工作表   
 	  
 	            jxl.write.WritableSheet ws = wwb.getSheet(0);   
-	            
-	            //测试用
-	            if(ws == null)
-	            	System.out.println("!!!!!");
 
 	            int i = 0;
 
@@ -31,7 +27,8 @@ public class WriteExcel {
 	  	  
 	            //写入Excel对象   
 	            wwb.write();   
-
+	  
+//	            wwb.close();   //这块儿？
 		}catch(Exception e){
 			e.printStackTrace();
 		}

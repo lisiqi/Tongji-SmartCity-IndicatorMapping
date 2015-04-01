@@ -285,23 +285,22 @@ public class App {
 //		CreateDictionary newDict = new CreateDictionary("src/main/resources/构建词库用.xls");
 //测试写Excel
 
-		MapIndicator mi = new MapIndicator();
-		mi.mapping();
+//		MapIndicator mi = new MapIndicator();
+//		mi.mapping();
+		try{
+			jxl.Workbook readwb1 = null; 
+			InputStream instream1 = new FileInputStream("src/main/resources/最新数据库指标.xls");   
+			readwb1 = Workbook.getWorkbook(instream1);
+			//利用已经创建的Excel工作薄,创建新的可写入的Excel工作薄   	  
+			jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(new File("映射结果.xls"), readwb1);
+			
+			WriteExcel we = new WriteExcel();
+			we.writeCell(wwb, 2, "hahahahahahahahahahahahah");
 		
-//		try{
-//			jxl.Workbook readwb1 = null; 
-//			InputStream instream1 = new FileInputStream("src/main/resources/最新数据库指标.xls");   
-//			readwb1 = Workbook.getWorkbook(instream1);
-//			//利用已经创建的Excel工作薄,创建新的可写入的Excel工作薄   	  
-//			jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(new File("映射结果.xls"), readwb1);
-//			
-//			WriteExcel we = new WriteExcel();
-//			we.writeCell(wwb, 2, "hahahahahahahahahahahahah");
-//		
-//			readwb1.close();
-//			wwb.close();
-//		}catch(Exception e) {    
-//            e.printStackTrace();
-//        }
+			readwb1.close();
+			wwb.close();
+		}catch(Exception e) {    
+            e.printStackTrace();
+        }
 	}
 }

@@ -31,7 +31,8 @@ public class WriteExcel {
 	  	  
 	            //写入Excel对象   
 	            wwb.write();   
-
+	  
+//	            wwb.close();   //这块儿？
 		}catch(Exception e){
 			e.printStackTrace();
 		}
