@@ -1,5 +1,6 @@
 package priv.siqi.java;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import jxl.Sheet;
 import jxl.Workbook;
 
 import com.huaban.analysis.jieba.JiebaSegmenter;
+import com.huaban.analysis.jieba.SegToken;
+import com.huaban.analysis.jieba.JiebaSegmenter.SegMode;
 
 public class MapIndicator {
 	
@@ -32,6 +35,12 @@ public class MapIndicator {
 		SegmentDBIndicator segDBIndi = new SegmentDBIndicator();
 		
 		try{
+			jxl.Workbook readwb1 = null; 
+			InputStream instream1 = new FileInputStream("src/main/resources/最新数据库指标.xls");   
+			readwb1 = Workbook.getWorkbook(instream1);
+			//利用已经创建的Excel工作薄,创建新的可写入的Excel工作薄   	  
+			jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(new File("映射结果.xls"), readwb1);
+			
 			InputStream instream = new FileInputStream("src/main/resources/待整理指标.xls"); //需要另存为xls而不能直接修改后缀名  
 
             readwb = Workbook.getWorkbook(instream);   
@@ -52,13 +61,24 @@ public class MapIndicator {
                 for (int j = 0; j < rsColumns; j++)   //每一个待映射指标
                 {   
                 	Cell cell = readsheet.getCell(j, i); 
-                    String indicator = new String(cell.getContents());
+                    String indicator = new String(cell.getContents());  //取到待映射指标
                     
-                    JiebaSegmenter segmenter = new JiebaSegmenter();                            
-                    List<String> strings = segmenter.sentenceProcess(indicator);
-                    for(String s : strings){
-                    	hashset.add(s); //把分词后的结果存到HashSet里,没有重复值！
-                    }
+                    JiebaSegmenter segmenter = new JiebaSegmenter(); 
+                    
+                    //细粒度分词
+                    List<SegToken> segTokenList = segmenter.process(indicator, SegMode.INDEX);
+                    for(SegToken segToken : segTokenList){
+                    	String word = segToken.word;
+                    	if(word.matches(" *") == false){ //用regular expression 把长串空格去掉
+                    		hashset.add(word);
+                    	}	
+        			}
+//                    List<String> strings = segmenter.sentenceProcess(indicator);
+//                    for(String s : strings){
+//                    	hashset.add(s); //把分词后的结果存到HashSet里,没有重复值！
+//                    }
+                    
+                    
                     arrIndi.addAll(hashset);//arrIndi存了单个indicator的分词结果
                     
                     //进行比较
@@ -76,14 +96,19 @@ public class MapIndicator {
                     	if(countTep >= count) 
                     	{
                     		count = countTep;
-                    		map.put(k,count);
+                    		if(count !=0){//(0,0)?
+                    			map.put(k,count);  
+                    		}
                     	}
                     	countTep = 0;                   	
                     }
                     
+                    arrIndi.clear();
+                    hashset.clear();
+                    
                     if(map.isEmpty() == false){
                     	//拿到中count的最大值并写Excel
-	                    int maxValueInMap = Collections.max(map.values());
+	                    int maxValueInMap = Collections.max(map.values());                    
 	                    for(Entry<Integer, Integer> entry : map.entrySet()){
 	                    	if(entry.getValue() == maxValueInMap){
 	                    		
@@ -91,7 +116,7 @@ public class MapIndicator {
 	                    		
 	                    		//往这几个数据库指标中映射
 	                    		//写Excel
-	                    		we.writeCell(kRow, indicator);
+	                    		we.writeCell(wwb, kRow, indicator);
 	                    		
 	                    		
 	                    	}
@@ -101,10 +126,14 @@ public class MapIndicator {
                     
                 }
             }
+            
+            wwb.close();
+            readwb1.close();
 		}catch(Exception e) {    
             e.printStackTrace();     
         }finally{
         	readwb.close();
+        	
         }
 	}
 	

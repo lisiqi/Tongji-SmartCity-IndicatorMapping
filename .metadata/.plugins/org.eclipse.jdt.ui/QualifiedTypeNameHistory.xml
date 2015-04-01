@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.huaban.analysis.jieba.JiebaSegmenter"/>
+<fullyQualifiedTypeName name="com.huaban.analysis.jieba.JiebaSegmenter.SegMode"/>
+<fullyQualifiedTypeName name="com.huaban.analysis.jieba.SegToken"/>
+</qualifiedTypeNameHistroy>
