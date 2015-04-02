@@ -31,16 +31,37 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
+import junit.framework.Assert;
 import priv.siqi.java.CreateDictionary;
-import jxl.Cell;   
-  
-import jxl.CellType;   
-  
-import jxl.Sheet;   
-  
-import jxl.Workbook;   
-  
-import jxl.write.Label; 
+
+
+
+
+
+
+
+
+import org.apache.poi.hssf.model.InternalWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+//import jxl.Cell;   
+//  
+//import jxl.CellType;   
+//  
+//import jxl.Sheet;   
+//  
+//import jxl.Workbook;   
+//  
+//import jxl.write.Label; 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 
 public class App {
 
@@ -284,7 +305,7 @@ public class App {
 	public static void main(String[] args) {
 //		CreateDictionary newDict = new CreateDictionary("src/main/resources/构建词库用.xls");
 //测试写Excel
-
+//
 		MapIndicator mi = new MapIndicator();
 		mi.mapping();
 		
@@ -299,9 +320,30 @@ public class App {
 //			we.writeCell(wwb, 2, "hahahahahahahahahahahahah");
 //		
 //			readwb1.close();
-//			wwb.close();
+//			wwb.close();//close的时候才写成！
 //		}catch(Exception e) {    
 //            e.printStackTrace();
 //        }
+		 
+//		try {
+//			InputStream inp = new FileInputStream("src/main/resources/最新数据库指标.xls");
+//			Workbook wb1 = WorkbookFactory.create(inp);
+//		    
+//		    Workbook wb = new HSSFWorkbook();
+//			wb = wb1;
+//			
+//
+//		    
+//			FileOutputStream fileOut = new FileOutputStream("映射结果.xls");		    
+//		    wb.write(fileOut);
+//		    fileOut.close();
+//		    
+//		
+//		    
+//
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
 	}
 }

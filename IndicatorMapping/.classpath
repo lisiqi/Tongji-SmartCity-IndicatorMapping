@@ -23,5 +23,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/main/exLib/jxl.jar"/>
+	<classpathentry kind="lib" path="src/main/exLib/poi.jar"/>
+	<classpathentry kind="lib" path="src/main/exLib/poi-examples-3.11-20141221.jar"/>
+	<classpathentry kind="lib" path="src/main/exLib/poi-excelant-3.11-20141221.jar"/>
+	<classpathentry kind="lib" path="src/main/exLib/poi-ooxml-3.11-20141221.jar"/>
+	<classpathentry kind="lib" path="src/main/exLib/poi-ooxml-schemas-3.11-20141221.jar"/>
+	<classpathentry kind="lib" path="src/main/exLib/poi-scratchpad-3.11-20141221.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
